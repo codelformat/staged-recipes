@@ -1,0 +1,75 @@
+{% set name = "markdiffusion" %}
+{% set version = "0.1.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/THU-BPM/MarkDiffusion.git
+  git_rev: v{{ version }}
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
+
+requirements:
+  host:
+    - python
+    - pip
+    - setuptools
+
+  run:
+    - python
+    - numpy
+    - scipy
+    - pillow
+    - requests
+    - pyyaml
+    - tqdm
+    - regex
+    - einops
+    - safetensors
+
+    # PyTorch + CUDA Variant（CPU / 11.8 / 12.4）
+    - pytorch
+    - torchvision
+    - torchaudio
+    - cudatoolkit {{ cudatoolkit }}
+
+    # Diffusion / HF Ecosystem
+    - diffusers
+    - transformers
+    - accelerate
+    - huggingface-hub
+    - tokenizers
+    - sentencepiece
+
+    # Vision Dependencies
+    - opencv
+    - imageio
+
+    # Project-required optional deps
+    - timm
+    - lpips
+    - facexlib
+    - scikit-learn
+    - pandas
+    - pyiqa
+    - lmdb
+    - numba
+    - sentence-transformers
+    - datasets
+
+about:
+  home: https://github.com/THU-BPM/MarkDiffusion
+  license: MIT
+  license_file: LICENSE
+  summary: MarkDiffusion: Diffusion model for structured/markdown text generation.
+  description: |
+    MarkDiffusion is a diffusion-based generative model designed for structured
+    text, markdown-enhanced reasoning, and multimodal modeling tasks.
+
+extra:
+  recipe-maintainers:
+    - THU-BPM
