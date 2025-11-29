@@ -1,0 +1,109 @@
+package:
+  name: markdiffusion
+  version: "0.1.0"
+
+source:
+  git_url: https://github.com/THU-BPM/MarkDiffusion.git
+  git_rev: main
+
+build:
+  number: 0
+  script:
+    - echo "[build-system]" > pyproject.toml
+    - echo "requires = [\"setuptools\", \"wheel\"]" >> pyproject.toml
+    - echo "build-backend = \"setuptools.build_meta\"" >> pyproject.toml
+    - echo "" >> pyproject.toml
+    - echo "[project]" >> pyproject.toml
+    - echo "name = \"markdiffusion\"" >> pyproject.toml
+    - echo "version = \"0.1.0\"" >> pyproject.toml
+    - echo "description = \"Generative watermarking toolkit for latent diffusion models\"" >> pyproject.toml
+    - echo "" >> pyproject.toml
+    - echo "[tool.setuptools]" >> pyproject.toml
+    - echo "packages = [" >> pyproject.toml
+    - echo "    \"config\"," >> pyproject.toml
+    - echo "    \"dataset\"," >> pyproject.toml
+    - echo "    \"detection\"," >> pyproject.toml
+    - echo "    \"evaluation\"," >> pyproject.toml
+    - echo "    \"exceptions\"," >> pyproject.toml
+    - echo "    \"inversions\"," >> pyproject.toml
+    - echo "    \"model\"," >> pyproject.toml
+    - echo "    \"utils\"," >> pyproject.toml
+    - echo "    \"visualize\"," >> pyproject.toml
+    - echo "    \"watermark\"," >> pyproject.toml
+    - echo "]" >> pyproject.toml
+
+    - "{{ PYTHON }} -m pip install . --no-deps -vv"
+
+requirements:
+  host:
+    - python
+    - pip
+    - setuptools
+
+  run:
+    - python
+    - numpy
+    - scipy
+    - pillow
+    - requests
+    - pyyaml
+    - tqdm
+    - regex
+    - einops
+    - safetensors
+    - pytorch
+    - torchvision
+    - torchaudio
+    - diffusers
+    - transformers
+    - accelerate
+    - tokenizers
+    - sentencepiece
+    - opencv
+    - imageio
+    - timm
+    - lpips
+    - facexlib
+    - scikit-learn
+    - pandas
+    - lmdb
+    - numba
+    - sentence-transformers
+    - datasets
+    - matplotlib
+    - scikit-image
+    - imageio-ffmpeg
+    - ffmpeg
+    - protobuf
+    - pytest>=7.0.0
+    - pytest-timeout>=2.1.0
+    - pytest-xdist>=3.0.0
+    - pytest-cov>=4.0.0
+    - pytest-html>=3.1.0
+    - pytest-mock>=3.10.0
+    - pytest-benchmark>=4.0.0 
+
+test:
+  imports:
+    - watermark
+    - utils
+    - evaluation
+    - detection
+    - visualize
+    - inversions
+
+about:
+  home: https://github.com/THU-BPM/MarkDiffusion
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: "MarkDiffusion: an Open-source toolkit for watermarking latent diffusion models."
+  description: |
+    MarkDiffusion is an open-source Python toolkit for generative watermarking
+    of latent diffusion models. It supports a unified algorithm framework,
+    watermark visualization, and evaluation pipelines for robustness, 
+    detectability, and image/video quality. Optional dependencies such as huggingface-hub
+    and pyiqa can be installed via pip when needed by specific algorithms and pipelines.
+
+extra:
+  recipe-maintainers:
+    - THU-BPM
